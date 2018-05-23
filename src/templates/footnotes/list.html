@@ -1,0 +1,12 @@
+<div class="footnotes">
+    <ol>
+        {% for fn in footnotes %}
+            <li id="{{ fn.articleId ? fn.articleId ~ '-' }}fn-{{ fn.noteId }}" class="footnotes-item">
+                {{ fn.noteText|raw }}
+                {% for markerId in 0..fn.markerCount %}
+                    <a href="#{{ fn.articleId ? fn.articleId ~ '-' }}fnref-{{ fn.noteId }}{{ markerId ? '-' ~ markerId }}">&#x21a9;&#xfe0e;</a>
+                {% endfor %}
+            </li>
+        {% endfor %}
+    </ol>
+</div>

@@ -1,0 +1,37 @@
+/**
+ * CSS belonging to the Footnote plugin’s default templates.
+ *
+ * Uses `display: table` to make indents align nicely.
+ * http://stackoverflow.com/questions/10428720/how-to-keep-indent-for-second-line-in-ordered-lists-via-css
+ */
+
+.footnotes {
+    counter-reset: footnotes;
+    display: table;
+    border-spacing: 0;
+    font-size: 0.85em;
+}
+
+.footnotes-item {
+    counter-increment: footnotes;
+    display: table-row;
+}
+
+.footnotes-item::before {
+    content: counter(footnotes) ".";
+    display: table-cell;
+    text-align: right;
+    padding-right: 0.5em;
+}
+
+.footnotes-item:target,
+.footnotes-marker a:target {
+    background-color: whitesmoke;
+}
+
+.footnotes-marker {
+    position: relative;
+    vertical-align: baseline;
+    top: -0.5em;
+    font-size: 0.75em;
+}

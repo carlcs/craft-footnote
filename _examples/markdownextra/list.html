@@ -1,0 +1,20 @@
+{##
+ # Footnotes as they are returned using Markdown Extra.
+ # http://parsedown.org/extra/#fn:1
+ #}
+
+<div class="footnotes">
+    <hr>
+    <ol>
+        {% for fn in footnotes %}
+            <li id="fn:{{ fn.noteId }}">
+                <p>
+                    {{ fn.noteText|raw }}
+                    {% for markerId in 0..fn.markerCount %}
+                        <a href="#fnref{{ markerId ? markerId }}:{{ fn.noteId }}" class="footnote-backref">&#x21a9;&#xfe0e;</a>
+                    {% endfor %}
+                </p>
+            </li>
+        {% endfor %}
+    </ol>
+</div>

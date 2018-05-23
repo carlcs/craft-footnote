@@ -1,0 +1,31 @@
+{##
+ # Footnotes as seen on Wikipedia.
+ # https://de.wikipedia.org/wiki/Fußnote#cite_note-1
+ #
+ # Note: the `numeralSystem` filter used in the templates is not included with the
+ # Footnotes plugin. It is part of https://github.com/carlcs/craft-helpers.
+ #}
+
+<ol class="references">
+    {% for fn in footnotes %}
+        <li id="{{ fn.articleId ? fn.articleId ~ '-' }}cite_note-{{ fn.noteId }}">
+            <span class="mw-cite-backlink">
+                {% if fn.markerCount == 0 %}
+                    <a href="#{{ fn.articleId ? fn.articleId ~ '-' }}cite_ref-{{ fn.noteId }}">↑</a>
+                {% else %}
+                    ↑
+                    {% for markerId in 0..fn.markerCount %}
+                        <sup>
+                            <a href="#{{ fn.articleId ? fn.articleId ~ '-' }}cite_ref-{{ fn.noteId }}{{ markerId ? '-' ~ markerId }}">
+                                {{ (markerId + 1)|numeralSystem('lowerAlpha') }}
+                            </a>
+                        </sup>
+                    {% endfor %}
+                {% endif %}
+            </span>
+            <span class="reference-text">
+                {{ fn.noteText|raw }}
+            </span>
+        </li>
+    {% endfor %}
+</ol>

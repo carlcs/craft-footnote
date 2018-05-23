@@ -1,0 +1,22 @@
+{##
+ # Footnotes as seen on Daring Fireball.
+ # https://daringfireball.net/2005/07/footnotes#fn1-2005-07-20
+ #
+ # Use the article’s post date for the `articleId` parameter.
+ #}
+
+<div class="footnotes">
+    <hr>
+    <ol>
+        {% for fn in footnotes %}
+            <li id="fn{{ fn.noteId }}{{ fn.articleId ? '-' ~ fn.articleId }}">
+                <p>
+                    {{ fn.noteText|raw }}
+                    {% for markerId in 0..fn.markerCount %}
+                        <a href="#fnref{{ fn.noteId }}{{ markerId ? '-' ~ markerId }}{{ fn.articleId ? '-' ~ fn.articleId }}" class="footnoteBackLink" title="Jump back to footnote {{ fn.noteId }}{{ markerId ? '-' ~ markerId }} in the text.">&#x21a9;&#xfe0e;</a>
+                    {% endfor %}
+                </p>
+            </li>
+        {% endfor %}
+    </ol>
+</div>

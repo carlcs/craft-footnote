@@ -1,0 +1,5 @@
+{% spaceless %}
+    <sup id="{{ articleId ? articleId ~ '-' }}fnref-{{ noteId }}{{ markerId ? '-' ~ markerId }}" class="Footnotes-marker {{ markerPosition ? 'Footnotes-marker--subseq' }}">
+        <a href="#{{ articleId ? articleId ~ '-' }}fn-{{ noteId }}">{{ noteId }}</a>
+    </sup>
+{% endspaceless %}
