@@ -2,6 +2,7 @@
 
 namespace carlcs\footnotes\web\assets;
 
+use craft\redactor\assets\redactor\RedactorAsset;
 use craft\web\AssetBundle;
 use craft\web\assets\cp\CpAsset;
 
@@ -16,6 +17,7 @@ class RedactorPluginAsset extends AssetBundle
 
         $this->depends = [
             CpAsset::class,
+            RedactorAsset::class,
         ];
 
         $this->js[] = 'footnotes.js';

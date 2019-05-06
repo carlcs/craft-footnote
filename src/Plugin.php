@@ -9,6 +9,7 @@ use Craft;
 use craft\helpers\Json;
 use craft\redactor\events\RegisterPluginPathsEvent;
 use craft\redactor\Field as RedactorField;
+use craft\web\View;
 use yii\base\Event;
 
 /**
@@ -39,6 +40,12 @@ class Plugin extends \craft\base\Plugin
 
         if ($request->getIsCpRequest()) {
             Event::on(RedactorField::class, RedactorField::EVENT_REGISTER_PLUGIN_PATHS, [$this, 'registerRedactorPlugin']);
+
+            $view = Craft::$app->getView();
+            $view->registerAssetBundle(RedactorPluginAsset::class);
+
+            $icon = file_get_contents(Craft::getAlias('@carlcs/footnotes/icon-mask.svg'));
+            $view->registerJs('Craft.Footnotes = '.Json::encode(compact('icon')).';');
         }
     }
 
@@ -50,12 +57,6 @@ class Plugin extends \craft\base\Plugin
     public function registerRedactorPlugin(RegisterPluginPathsEvent $event)
     {
         $event->paths[] = Craft::getAlias('@carlcs/footnotes/web/assets/_redactorplugin');
-
-        $view = Craft::$app->getView();
-        $view->registerAssetBundle(RedactorPluginAsset::class);
-
-        $icon = file_get_contents(Craft::getAlias('@carlcs/footnotes/icon-mask.svg'));
-        $view->registerJs('Craft.Footnotes = '.Json::encode(compact('icon')).';');
     }
 
     /**
