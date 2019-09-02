@@ -31,7 +31,7 @@ class Footnotes extends Component
         $setDefinitionsKeyPrefix = Plugin::getInstance()->getSettings()->setDefinitionsKeyPrefix;
 
         foreach ($definitions as $name => $text) {
-            StringHelper::removeLeft($name, $setDefinitionsKeyPrefix);
+            $name = StringHelper::removeLeft($name, $setDefinitionsKeyPrefix);
 
             $this->_footnotes[$articleId][$name] = [
                 'articleId' => $articleId,
