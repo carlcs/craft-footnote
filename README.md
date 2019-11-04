@@ -11,6 +11,11 @@ The plugin is in beta right now. You can install it manually from the command li
 > ./craft install/plugin footnote
 ```
 
+### Conflicting plugin handle
+
+The plugin handle had to change in Nov 2019 to avoid conficts with another plugin.
+To update to 2.0.0 beta 5 please see [steps outlined here](https://github.com/carlcs/craft-footnote/issues/7).
+
 ## Quick Start
 
 Please visit [this doc](https://gist.github.com/carlcs/a8c51bb7bbeb3350e549a6ba3cd27f7a) for now.
