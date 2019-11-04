@@ -1,6 +1,6 @@
 <?php
 
-namespace carlcs\footnotes\models;
+namespace carlcs\footnote\models;
 
 use craft\base\Model;
 

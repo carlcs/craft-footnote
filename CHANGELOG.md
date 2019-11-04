@@ -1,9 +1,14 @@
 # Changelog
 
+## 2.0.0-beta.5 - 2019-11-04
+
+### Updated
+- Changed the plugin handle from `footnotes` to `footnote`. ([#5](https://github.com/carlcs/craft-footnote/issues/7))
+
 ## 2.0.0-beta.4 - 2019-09-02
 
 ### Fixed
-- Fixed a bug where stripping the key prefix didn’t work correctly. ([#5](https://github.com/carlcs/craft-footnotes/issues/5))
+- Fixed a bug where stripping the key prefix didn’t work correctly. ([#5](https://github.com/carlcs/craft-footnote/issues/5))
 
 ## 2.0.0-beta.3 - 2019-05-06
 

@@ -1,8 +1,8 @@
 <?php
 
-namespace carlcs\footnotes\web\twig;
+namespace carlcs\footnote\web\twig;
 
-use carlcs\footnotes\Plugin;
+use carlcs\footnote\Plugin;
 
 class Extension extends \Twig_Extension
 {
@@ -14,7 +14,7 @@ class Extension extends \Twig_Extension
      */
     public function getName(): string
     {
-        return 'Footnotes';
+        return 'Footnote';
     }
 
     /**

@@ -1,5 +1,5 @@
 (function($R) {
-    $R.add('plugin', 'footnotes', {
+    $R.add('plugin', 'footnote', {
         init: function(app) {
             this.app = app;
             this.lang = app.lang;
@@ -10,8 +10,8 @@
         },
         start: function() {
             var data = {
-                title: Craft.t('footnotes', 'Footnote'),
-                icon: Craft.Footnotes.icon,
+                title: Craft.t('footnote', 'Footnote'),
+                icon: Craft.Footnote.icon,
                 api: 'module.inline.format',
                 args: {
                     tag: 'span',

@@ -1,10 +1,11 @@
 <?php
 
-namespace carlcs\footnotes;
+namespace carlcs\footnote;
 
-use carlcs\footnotes\models\Settings;
-use carlcs\footnotes\web\twig\Extension;
-use carlcs\footnotes\web\assets\RedactorPluginAsset;
+use carlcs\footnote\models\Settings;
+use carlcs\footnote\services\Footnotes;
+use carlcs\footnote\web\twig\Extension;
+use carlcs\footnote\web\assets\RedactorPluginAsset;
 use Craft;
 use craft\helpers\Json;
 use craft\redactor\events\RegisterPluginPathsEvent;
@@ -44,8 +45,8 @@ class Plugin extends \craft\base\Plugin
             $view = Craft::$app->getView();
             $view->registerAssetBundle(RedactorPluginAsset::class);
 
-            $icon = file_get_contents(Craft::getAlias('@carlcs/footnotes/icon-mask.svg'));
-            $view->registerJs('Craft.Footnotes = '.Json::encode(compact('icon')).';');
+            $icon = file_get_contents(Craft::getAlias('@carlcs/footnote/icon-mask.svg'));
+            $view->registerJs('Craft.Footnote = '.Json::encode(compact('icon')).';');
         }
     }
 
@@ -56,7 +57,7 @@ class Plugin extends \craft\base\Plugin
      */
     public function registerRedactorPlugin(RegisterPluginPathsEvent $event)
     {
-        $event->paths[] = Craft::getAlias('@carlcs/footnotes/web/assets/_redactorplugin');
+        $event->paths[] = Craft::getAlias('@carlcs/footnote/web/assets/_redactorplugin');
     }
 
     /**

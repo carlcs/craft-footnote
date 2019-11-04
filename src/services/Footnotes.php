@@ -1,7 +1,8 @@
 <?php
 
-namespace carlcs\footnotes;
+namespace carlcs\footnote\services;
 
+use carlcs\footnote\Plugin;
 use Craft;
 use craft\base\Component;
 use craft\helpers\StringHelper;
@@ -241,7 +242,7 @@ class Footnotes extends Component
         $oldTemplateMode = $view->getTemplateMode();
 
         $view->setTemplateMode($view::TEMPLATE_MODE_CP);
-        $html = $view->renderTemplate('footnotes/footnotes/'.$context, $variables);
+        $html = $view->renderTemplate('footnote/footnote/'.$context, $variables);
 
         $view->setTemplateMode($oldTemplateMode);
 

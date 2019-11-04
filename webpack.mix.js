@@ -5,5 +5,5 @@ const paths = {
     dist: 'src/web/assets/dist',
 };
 
-mix.js(paths.src+'/footnotes.js', paths.dist)
-    .sass(paths.src+'/footnotes.scss', paths.dist);
+mix.js(paths.src+'/footnote.js', paths.dist)
+    .sass(paths.src+'/footnote.scss', paths.dist);

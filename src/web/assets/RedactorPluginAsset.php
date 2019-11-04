@@ -1,6 +1,6 @@
 <?php
 
-namespace carlcs\footnotes\web\assets;
+namespace carlcs\footnote\web\assets;
 
 use craft\redactor\assets\redactor\RedactorAsset;
 use craft\web\AssetBundle;
@@ -20,8 +20,8 @@ class RedactorPluginAsset extends AssetBundle
             RedactorAsset::class,
         ];
 
-        $this->js[] = 'footnotes.js';
-        $this->css[] = 'footnotes.css';
+        $this->js[] = 'footnote.js';
+        $this->css[] = 'footnote.css';
 
         parent::init();
     }
