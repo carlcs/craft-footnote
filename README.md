@@ -1,4 +1,4 @@
-# Footnotes plugin for Craft CMS
+# Footnote plugin for Craft CMS
 
 Helper functions to add footnotes to your content.
 
