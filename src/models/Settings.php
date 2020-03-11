@@ -79,6 +79,11 @@ class Settings extends Model
      */
     public $listTemplate;
 
+    /**
+     * @var int|null
+     */
+    public $inlineFootnoteMinLength;
+
     // Public Methods
     // =========================================================================
 
