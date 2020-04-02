@@ -1,8 +1,13 @@
 # Changelog
 
+## Unreleased
+
+### Changed
+- Updated styles for Craft 3.4
+
 ## 2.0.0-beta.5 - 2019-11-04
 
-### Updated
+### Changed
 - Changed the plugin handle from `footnotes` to `footnote`. ([#5](https://github.com/carlcs/craft-footnote/issues/7))
 
 ## 2.0.0-beta.4 - 2019-09-02
