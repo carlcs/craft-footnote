@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Added
+- Added support for inline footnotes. ([#7](https://github.com/carlcs/craft-footnote/issues/7#issuecomment-595842870))
+- Added the `inlineFootnoteMinLength` config setting.
+
 ### Changed
 - Updated styles for Craft 3.4
 

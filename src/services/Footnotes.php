@@ -107,7 +107,13 @@ class Footnotes extends Component
 
             foreach ($names as $position => $name) {
                 // Check if a matching footnote definition exists for this marker.
-                if (!isset($this->_footnotes[$articleId][$name])) {
+                $noDefinitionMatch = !isset($this->_footnotes[$articleId][$name]);
+
+                // Check if this could be an inline footnote
+                $validInlineFootnote = $settings->inlineFootnoteMinLength !== null &&
+                    strlen($name) >= $settings->inlineFootnoteMinLength;
+
+                if ($noDefinitionMatch && !$validInlineFootnote) {
                     if ($settings->removeUnmatchedMarkers === true) {
                         return '';
                     }
@@ -115,12 +121,27 @@ class Footnotes extends Component
                     return $matches[0];
                 }
 
-                $fn = &$this->_footnotes[$articleId][$name];
-
                 // Initialize a counter for each article.
                 if (!isset($fnCount[$articleId])) {
                     $fnCount[$articleId] = 0;
                 }
+
+                // If it’s an inline footnote we need to store it now
+                if ($noDefinitionMatch) {
+                    $noteText = $name;
+                    $name = md5($name);
+
+                    if (!isset($this->_footnotes[$articleId][$name])) {
+                        $this->_footnotes[$articleId][$name] = [
+                            'articleId' => $articleId,
+                            'noteText' => trim($noteText),
+                            'noteId' => null,
+                            'markerCount' => null,
+                        ];
+                    }
+                }
+
+                $fn = &$this->_footnotes[$articleId][$name];
 
                 // Is this the first marker for this footnote?
                 if (!isset($fn['noteId'])) {
