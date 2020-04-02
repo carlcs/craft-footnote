@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.0.0 - 2020-04-02
 
 ### Added
 - Added support for inline footnotes. ([#7](https://github.com/carlcs/craft-footnote/issues/7#issuecomment-595842870))
