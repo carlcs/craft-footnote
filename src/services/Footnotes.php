@@ -176,15 +176,15 @@ class Footnotes extends Component
     public function getFootnotes($articleId = ''): array
     {
         // No footnote definitions stored at all?
-        if (!isset($this->_footnotes[$articleId])) {
+        if (($footnotes = $this->_footnotes[$articleId] ?? false) === false) {
             return [];
         }
 
-        uasort($this->_footnotes[$articleId], function ($fnA, $fnB) {
+        uasort($footnotes, function ($fnA, $fnB) {
             return $fnA['noteId'] - $fnB['noteId'];
         });
 
-        $footnotes = array_filter($this->_footnotes[$articleId], function ($fn) {
+        $footnotes = array_filter($footnotes, function ($fn) {
             return isset($fn['noteId']);
         });
 
