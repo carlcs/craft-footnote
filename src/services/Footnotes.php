@@ -171,13 +171,18 @@ class Footnotes extends Component
      * Returns an array of footnotes which were matched to markers.
      *
      * @param string $articleId The ID to identify the article the footnotes belong to
+     * @param bool $raw
      * @return array
      */
-    public function getFootnotes($articleId = ''): array
+    public function getFootnotes($articleId = '', $raw = false): array
     {
         // No footnote definitions stored at all?
         if (($footnotes = $this->_footnotes[$articleId] ?? false) === false) {
             return [];
+        }
+
+        if ($raw === true) {
+            return $footnotes;
         }
 
         uasort($footnotes, function ($fnA, $fnB) {
