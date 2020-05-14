@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.0.1 - 2020-05-14
+
+### Added
+- Added the `includeUnmatched` param to the `getFootnotes()` function. ([#8](https://github.com/carlcs/craft-footnote/issues/8))
+
 ## 2.0.0 - 2020-04-02
 
 ### Added
@@ -12,7 +17,7 @@
 ## 2.0.0-beta.5 - 2019-11-04
 
 ### Changed
-- Changed the plugin handle from `footnotes` to `footnote`. ([#5](https://github.com/carlcs/craft-footnote/issues/7))
+- Changed the plugin handle from `footnotes` to `footnote`. ([#7](https://github.com/carlcs/craft-footnote/issues/7))
 
 ## 2.0.0-beta.4 - 2019-09-02
 
