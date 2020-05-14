@@ -171,22 +171,25 @@ class Footnotes extends Component
      * Returns an array of footnotes which were matched to markers.
      *
      * @param string $articleId The ID to identify the article the footnotes belong to
+     * @param bool $includeUnmatched
      * @return array
      */
-    public function getFootnotes($articleId = ''): array
+    public function getFootnotes($articleId = '', $includeUnmatched = false): array
     {
         // No footnote definitions stored at all?
-        if (!isset($this->_footnotes[$articleId])) {
+        if (($footnotes = $this->_footnotes[$articleId] ?? false) === false) {
             return [];
         }
 
-        uasort($this->_footnotes[$articleId], function ($fnA, $fnB) {
+        uasort($footnotes, function ($fnA, $fnB) {
             return $fnA['noteId'] - $fnB['noteId'];
         });
 
-        $footnotes = array_filter($this->_footnotes[$articleId], function ($fn) {
-            return isset($fn['noteId']);
-        });
+        if ($includeUnmatched !== true) {
+            $footnotes = array_filter($footnotes, function ($fn) {
+                return isset($fn['noteId']);
+            });
+        }
 
         // No markers matched with footnote definitions?
         if (empty($footnotes)) {
