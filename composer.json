@@ -1,7 +1,7 @@
 {
   "name": "carlcs/craft-footnote",
   "description": "Footnote plugin for Craft CMS",
-  "version": "2.0.2",
+  "version": "3.0.0",
   "type": "craft-plugin",
   "keywords": [
     "footnotes",
@@ -18,11 +18,10 @@
   "support": {
     "issues": "https://github.com/carlcs/craft-footnote/issues?state=open",
     "source": "https://github.com/carlcs/craft-footnote",
-    "docs": "https://github.com/carlcs/craft-footnote",
-    "rss": "https://github.com/carlcs/craft-footnote/commits/v2.atom"
+    "docs": "https://github.com/carlcs/craft-footnote"
   },
   "require": {
-    "craftcms/cms": "^3.0.0"
+    "craftcms/cms": "^4.0.0-beta.1"
   },
   "autoload": {
     "psr-4": {
@@ -30,9 +29,7 @@
     }
   },
   "extra": {
-    "name": "Footnote",
     "handle": "footnote",
-    "changelogUrl": "https://github.com/carlcs/craft-footnote/raw/v2/CHANGELOG.md",
-    "downloadUrl": "https://github.com/carlcs/craft-footnote/archive/v2.zip"
+    "name": "Footnote"
   }
 }

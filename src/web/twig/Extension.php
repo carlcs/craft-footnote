@@ -3,41 +3,31 @@
 namespace carlcs\footnote\web\twig;
 
 use carlcs\footnote\Plugin;
+use Twig\TwigFilter;
+use Twig\TwigFunction;
 
-class Extension extends \Twig_Extension
+class Extension extends \Twig\Extension\AbstractExtension
 {
-    // Public Methods
-    // =========================================================================
-
-    /**
-     * @inheritdoc
-     */
     public function getName(): string
     {
         return 'Footnote';
     }
 
-    /**
-     * @inheritdoc
-     */
     public function getFunctions(): array
     {
         return [
-            new \Twig_SimpleFunction('setFootnoteDefinitions', [Plugin::getInstance()->getFootnotes(), 'setDefinitions']),
-            new \Twig_SimpleFunction('parseFootnoteDefinitions', [Plugin::getInstance()->getFootnotes(), 'parseDefinitions']),
-            new \Twig_SimpleFunction('parseFootnoteMarkers', [Plugin::getInstance()->getFootnotes(), 'parseMarkers'], ['is_safe' => ['html']]),
-            new \Twig_SimpleFunction('getFootnotes', [Plugin::getInstance()->getFootnotes(), 'getFootnotes']),
-            new \Twig_SimpleFunction('getFootnotesHtml', [Plugin::getInstance()->getFootnotes(), 'getFootnotesHtml'], ['is_safe' => ['html']]),
+            new TwigFunction('setFootnoteDefinitions', [Plugin::getInstance()->getFootnotes(), 'setDefinitions']),
+            new TwigFunction('parseFootnoteDefinitions', [Plugin::getInstance()->getFootnotes(), 'parseDefinitions']),
+            new TwigFunction('parseFootnoteMarkers', [Plugin::getInstance()->getFootnotes(), 'parseMarkers'], ['is_safe' => ['html']]),
+            new TwigFunction('getFootnotes', [Plugin::getInstance()->getFootnotes(), 'getFootnotes']),
+            new TwigFunction('getFootnotesHtml', [Plugin::getInstance()->getFootnotes(), 'getFootnotesHtml'], ['is_safe' => ['html']]),
         ];
     }
 
-    /**
-     * @inheritdoc
-     */
     public function getFilters(): array
     {
         return [
-            new \Twig_SimpleFilter('parseFootnoteMarkers', [Plugin::getInstance()->getFootnotes(), 'parseMarkers'], ['is_safe' => ['html']]),
+            new TwigFilter('parseFootnoteMarkers', [Plugin::getInstance()->getFootnotes(), 'parseMarkers'], ['is_safe' => ['html']]),
         ];
     }
 }

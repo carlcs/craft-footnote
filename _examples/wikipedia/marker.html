@@ -1,5 +1,5 @@
-{% spaceless %}
+{% apply spaceless %}
     <sup id="{{ articleId ? articleId ~ '-' }}cite_ref-{{ noteId }}{{ markerId ? '-' ~ markerId }}" class="reference">
         <a href="#{{ articleId ? articleId ~ '-' }}cite_note-{{ noteId }}">[{{ noteId }}]</a>
     </sup>
-{% endspaceless %}
+{% endapply %}

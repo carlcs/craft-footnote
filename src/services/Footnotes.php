@@ -6,6 +6,7 @@ use carlcs\footnote\Plugin;
 use Craft;
 use craft\base\Component;
 use craft\helpers\StringHelper;
+use craft\web\View;
 use yii\base\InvalidArgumentException;
 
 class Footnotes extends Component
@@ -13,21 +14,15 @@ class Footnotes extends Component
     // Properties
     // =========================================================================
 
-    /**
-     * @var array|null
-     */
-    private $_footnotes;
+    private ?array $_footnotes = null;
 
     // Public Methods
     // =========================================================================
 
     /**
      * Stores an array of footnote definitions.
-     *
-     * @param array $definitions An array of footnote definition name-text pairs
-     * @param string $articleId The ID to identify the article the footnotes belong to
      */
-    public function setDefinitions($definitions, $articleId = '')
+    public function setDefinitions(array $definitions, string $articleId = '')
     {
         $setDefinitionsKeyPrefix = Plugin::getInstance()->getSettings()->setDefinitionsKeyPrefix;
 
@@ -45,13 +40,8 @@ class Footnotes extends Component
 
     /**
      * Parses a string for footnote definitions, stores names and texts.
-     *
-     * @param string $str The string to be parsed
-     * @param string $articleId The ID to identify the article the footnotes belong to
-     * @param string|null $definitionSyntax Sets the syntax the parser is expecting
-     * @return string
      */
-    public function parseDefinitions($str, $articleId = '', $definitionSyntax = null): string
+    public function parseDefinitions(string $str, string $articleId = '', ?string $definitionSyntax = null): string
     {
         $settings = Plugin::getInstance()->getSettings();
         $definitionSyntax = $definitionSyntax ?: $settings->definitionSyntax;
@@ -60,7 +50,7 @@ class Footnotes extends Component
             throw new InvalidArgumentException('Unsupported definition syntax: '.$definitionSyntax);
         }
 
-        $callback = function ($matches) use ($articleId) {
+        $callback = function($matches) use ($articleId) {
             $this->_footnotes[$articleId][$matches['name']] = [
                 'articleId' => $articleId,
                 'noteText' => trim($matches['text']),
@@ -75,14 +65,8 @@ class Footnotes extends Component
     /**
      * Parses a string for footnotes markers and replaces them with links to the
      * corresponding footnote if one is found, otherwise removes the marker.
-     *
-     * @param string $str The string to be parsed for markers
-     * @param string|null $template The path to the template to render for a matched marker
-     * @param string $articleId Identifies the article the footnotes belong to
-     * @param string|null $markerSyntax Sets the syntax the parser is expecting
-     * @return string
      */
-    public function parseMarkers($str, $template = null, $articleId = '', $markerSyntax = null): string
+    public function parseMarkers(string $str, string $template = null, string $articleId = '', ?string $markerSyntax = null): string
     {
         $settings = Plugin::getInstance()->getSettings();
         $markerSyntax = $markerSyntax ?: $settings->markerSyntax;
@@ -93,7 +77,7 @@ class Footnotes extends Component
 
         static $fnCount = [];
 
-        $callback = function ($matches) use ($settings, $articleId, $template, &$fnCount) {
+        $callback = function($matches) use ($settings, $articleId, $template, &$fnCount) {
 
             // Prepare the marker names
             if ($settings->allowMarkersArray === true) {
@@ -169,24 +153,20 @@ class Footnotes extends Component
 
     /**
      * Returns an array of footnotes which were matched to markers.
-     *
-     * @param string $articleId The ID to identify the article the footnotes belong to
-     * @param bool $includeUnmatched
-     * @return array
      */
-    public function getFootnotes($articleId = '', $includeUnmatched = false): array
+    public function getFootnotes(string $articleId = '', bool $includeUnmatched = false): array
     {
         // No footnote definitions stored at all?
         if (($footnotes = $this->_footnotes[$articleId] ?? false) === false) {
             return [];
         }
 
-        uasort($footnotes, function ($fnA, $fnB) {
+        uasort($footnotes, function($fnA, $fnB) {
             return $fnA['noteId'] - $fnB['noteId'];
         });
 
         if ($includeUnmatched !== true) {
-            $footnotes = array_filter($footnotes, function ($fn) {
+            $footnotes = array_filter($footnotes, function($fn) {
                 return isset($fn['noteId']);
             });
         }
@@ -201,12 +181,8 @@ class Footnotes extends Component
 
     /**
      * Returns the HTML for footnotes which were matched to markers.
-     *
-     * @param string $articleId The ID to identify the article the footnotes belong to
-     * @param string|null $template The path to the template
-     * @return string
      */
-    public function getFootnotesHtml($template = null, $articleId = ''): string
+    public function getFootnotesHtml(string $template = null, string $articleId = ''): string
     {
         $footnotes = $this->getFootnotes($articleId);
 
@@ -239,13 +215,8 @@ class Footnotes extends Component
 
     /**
      * Renders footnotes list and marker templates.
-     *
-     * @param string $context Is this a footnotes list or a marker?
-     * @param string|null $customTemplate The path to the template
-     * @param array $variables The variables passed to the template
-     * @return string
      */
-    private function _handleTemplateRender($context, $customTemplate, $variables): string
+    private function _handleTemplateRender(string $context, ?string $customTemplate, array $variables): string
     {
         $view = Craft::$app->getView();
 
@@ -262,14 +233,6 @@ class Footnotes extends Component
             return $view->renderTemplate($defaultTemplate, $variables);
         }
 
-        // Plugin's default template
-        $oldTemplateMode = $view->getTemplateMode();
-
-        $view->setTemplateMode($view::TEMPLATE_MODE_CP);
-        $html = $view->renderTemplate('footnote/footnote/'.$context, $variables);
-
-        $view->setTemplateMode($oldTemplateMode);
-
-        return $html;
+        return $view->renderTemplate('footnote/footnote/'.$context, $variables, View::TEMPLATE_MODE_CP);
     }
 }

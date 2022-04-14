@@ -1,5 +1,5 @@
-{% spaceless %}
+{% apply spaceless %}
     <sup id="fnref{{ noteId }}{{ markerId ? '-' ~ markerId }}{{ articleId ? '-' ~ articleId }}">
         <a href="#fn{{ noteId }}{{ articleId ? '-' ~ articleId }}">{{ noteId }}</a>
     </sup>
-{% endspaceless %}
+{% endapply %}

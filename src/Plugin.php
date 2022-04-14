@@ -5,12 +5,10 @@ namespace carlcs\footnote;
 use carlcs\footnote\models\Settings;
 use carlcs\footnote\services\Footnotes;
 use carlcs\footnote\web\twig\Extension;
-use carlcs\footnote\web\assets\RedactorPluginAsset;
 use Craft;
-use craft\helpers\Json;
+use craft\base\Model;
 use craft\redactor\events\RegisterPluginPathsEvent;
 use craft\redactor\Field as RedactorField;
-use craft\web\View;
 use yii\base\Event;
 
 /**
@@ -24,47 +22,24 @@ class Plugin extends \craft\base\Plugin
     // Public Methods
     // =========================================================================
 
-    /**
-     * @inheritdoc
-     */
     public function init()
     {
         parent::init();
 
         $this->set('footnotes', Footnotes::class);
 
-        $request = Craft::$app->getRequest();
+        Craft::$app->getView()->registerTwigExtension(new Extension());
 
-        if ($request->getIsSiteRequest() || $request->getIsCpRequest()) {
-            Craft::$app->getView()->registerTwigExtension(new Extension());
-        }
-
-        if ($request->getIsCpRequest()) {
-            Event::on(RedactorField::class, RedactorField::EVENT_REGISTER_PLUGIN_PATHS, [$this, 'registerRedactorPlugin']);
-
-            $view = Craft::$app->getView();
-            $view->registerAssetBundle(RedactorPluginAsset::class);
+        if (Craft::$app->getRequest()->getIsCpRequest()) {
+            Event::on(RedactorField::class, RedactorField::EVENT_REGISTER_PLUGIN_PATHS, function(RegisterPluginPathsEvent $event) {
+                $event->paths[] = Craft::getAlias('@carlcs/footnote/web/redactor-plugins');
+            });
 
             $icon = file_get_contents(Craft::getAlias('@carlcs/footnote/icon-mask.svg'));
-            $view->registerJs('Craft.Footnote = '.Json::encode(compact('icon')).';');
+            Craft::$app->getView()->registerJsWithVars(fn($variables) => "Craft.Footnote = $variables", [compact('icon')]);
         }
     }
 
-    /**
-     * Registers the Redactor plugin and its assets.
-     *
-     * @param RegisterPluginPathsEvent $event
-     */
-    public function registerRedactorPlugin(RegisterPluginPathsEvent $event)
-    {
-        $event->paths[] = Craft::getAlias('@carlcs/footnote/web/assets/_redactorplugin');
-    }
-
-    /**
-     * Returns the footnotes service.
-     *
-     * @return Footnotes
-     */
     public function getFootnotes(): Footnotes
     {
         return $this->get('footnotes');
@@ -73,10 +48,7 @@ class Plugin extends \craft\base\Plugin
     // Protected Methods
     // =========================================================================
 
-    /**
-     * @inheritdoc
-     */
-    protected function createSettingsModel(): Settings
+    protected function createSettingsModel(): ?Model
     {
         return new Settings();
     }

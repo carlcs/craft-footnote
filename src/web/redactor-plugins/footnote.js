@@ -9,7 +9,7 @@
             this.addAfter = this.opts.footnoteAddAfter || this.opts.footnoteaddafter || 'lists';
         },
         start: function() {
-            var data = {
+            const data = {
                 title: Craft.t('footnote', 'Footnote'),
                 icon: Craft.Footnote.icon,
                 api: 'module.inline.format',

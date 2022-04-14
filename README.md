@@ -7,8 +7,8 @@ Helper functions to add footnotes to your content.
 Footnote plugin is available in the Plugin Store. You can also install the plugin manually from the command line with the following commands.
 
 ```
-> composer require carlcs/craft-footnote
-> ./craft install/plugin footnote
+composer require carlcs/craft-footnote
+php craft plugin/install footnote
 ```
 
 ## Quick Start

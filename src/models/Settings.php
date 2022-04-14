@@ -9,20 +9,9 @@ class Settings extends Model
     // Properties
     // =========================================================================
 
-    /**
-     * @var string
-     */
-    public $definitionSyntax = 'redactor';
-
-    /**
-     * @var string
-     */
-    public $markerSyntax = 'redactor';
-
-    /**
-     * @var array
-     */
-    public $definitionSyntaxes = [
+    public string $definitionSyntax = 'redactor';
+    public string $markerSyntax = 'redactor';
+    public array $definitionSyntaxes = [
         // Redactor syntax: `<p>1. My footnote definition</p>`
         'redactor' => '/<p>\s*(?P<name>\S+?)[ ]?\.[ ]*\n?(?P<text>[\s\S]+?)<\/p>/',
 
@@ -32,65 +21,26 @@ class Settings extends Model
         // Markdown syntax: `[^1]: My footnote definition`
         'markdown' => '/^[ ]{0,3}\[\^(?P<name>.+?)\][ ]?:[ ]*\n?(?P<text>(?:.+|\n(?!\[.+?\][ ]?:\s)(?!\n+[ ]{0,3}\S))*)/xm',
     ];
-
-    /**
-     * @var array
-     */
-    public $markerSyntaxes = [
+    public array $markerSyntaxes = [
         // Redactor syntax: `<span class="fn-marker">1</span>`
         'redactor' => '/(<span class=\"fn-marker\">(?P<name>.+?)<\/span>)/',
 
         // Markdown syntax: `[^1]`
         'markdown' => '/(\[\^(?P<name>\S+?)\])/',
     ];
-
-    /**
-     * @var array|null
-     */
-    public $extraDefinitionSyntaxes;
-
-    /**
-     * @var array|null
-     */
-    public $extraMarkerSyntaxes;
-
-    /**
-     * @var string
-     */
-    public $setDefinitionsKeyPrefix = 'ಠvಠ';
-
-    /**
-     * @var bool
-     */
-    public $allowMarkersArray = true;
-
-    /**
-     * @var bool
-     */
-    public $removeUnmatchedMarkers = true;
-
-    /**
-     * @var string|null
-     */
-    public $markerTemplate;
-
-    /**
-     * @var string|null
-     */
-    public $listTemplate;
-
-    /**
-     * @var int|null
-     */
-    public $inlineFootnoteMinLength;
+    public ?array $extraDefinitionSyntaxes = null;
+    public ?array $extraMarkerSyntaxes = null;
+    public string $setDefinitionsKeyPrefix = 'ಠvಠ';
+    public bool $allowMarkersArray = true;
+    public bool $removeUnmatchedMarkers = true;
+    public ?string $markerTemplate = null;
+    public ?string $listTemplate = null;
+    public ?int $inlineFootnoteMinLength = null;
 
     // Public Methods
     // =========================================================================
 
-    /**
-     * @inheritdoc
-     */
-    public function init()
+    public function init(): void
     {
         if (is_array($this->extraDefinitionSyntaxes)) {
             $this->definitionSyntaxes = array_merge($this->definitionSyntaxes, $this->extraDefinitionSyntaxes);

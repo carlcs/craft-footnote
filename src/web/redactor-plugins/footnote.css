@@ -1,0 +1,21 @@
+.redactor-styles fn-marker,
+.redactor-styles .fn-marker {
+    position: relative;
+    top: -0.5em;
+    font-size: 0.8em;
+    padding-right: 0.4em;
+    padding-left: 0.4em;
+    background: #eee;
+}
+
+.re-button svg {
+    width: 14px;
+    height: 14px;
+    margin-bottom: 1px;
+    fill: currentColor;
+}
+
+.redactor.enlarged .re-button svg {
+    width: 16px;
+    height: 16px;
+}
