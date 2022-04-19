@@ -35,8 +35,11 @@ class Plugin extends \craft\base\Plugin
                 $event->paths[] = Craft::getAlias('@carlcs/footnote/web/redactor-plugins');
             });
 
+            $view = Craft::$app->getView();
+
             $icon = file_get_contents(Craft::getAlias('@carlcs/footnote/icon-mask.svg'));
-            Craft::$app->getView()->registerJsWithVars(fn($variables) => "Craft.Footnote = $variables", [compact('icon')]);
+            $view->registerJsWithVars(fn($variables) => "Craft.Footnote = $variables", [compact('icon')]);
+            $view->registerTranslations('footnote', ['Footnote']);
         }
     }
 

@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+### Added
+- The button title is now translatable.
+
 ## 3.0.0 - 2022-04-14
 
 ### Added
