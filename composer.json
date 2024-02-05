@@ -1,7 +1,7 @@
 {
   "name": "carlcs/craft-footnote",
   "description": "Footnote plugin for Craft CMS",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "type": "craft-plugin",
   "keywords": [
     "footnotes",
