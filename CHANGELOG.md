@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+### Changed
+- Updated the plugin icons.
+
 ## 3.1.0 - 2024-02-05
 
 ### Added
