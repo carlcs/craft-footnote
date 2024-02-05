@@ -4,11 +4,14 @@ namespace carlcs\footnote;
 
 use carlcs\footnote\models\Settings;
 use carlcs\footnote\services\Footnotes;
+use carlcs\footnote\web\assets\ckeditor\CkeditorAsset;
 use carlcs\footnote\web\twig\Extension;
 use Craft;
 use craft\base\Model;
+use craft\ckeditor\Plugin as CkeditorPlugin;
 use craft\redactor\events\RegisterPluginPathsEvent;
 use craft\redactor\Field as RedactorField;
+use craft\redactor\Plugin as RedactorPlugin;
 use yii\base\Event;
 
 /**
@@ -28,18 +31,19 @@ class Plugin extends \craft\base\Plugin
 
         $this->set('footnotes', Footnotes::class);
 
-        Craft::$app->getView()->registerTwigExtension(new Extension());
+        $view = Craft::$app->getView();
+        $view->registerTwigExtension(new Extension());
 
         if (Craft::$app->getRequest()->getIsCpRequest()) {
-            Event::on(RedactorField::class, RedactorField::EVENT_REGISTER_PLUGIN_PATHS, function(RegisterPluginPathsEvent $event) {
-                $event->paths[] = Craft::getAlias('@carlcs/footnote/web/redactor-plugins');
-            });
-
-            $view = Craft::$app->getView();
-
-            $icon = file_get_contents(Craft::getAlias('@carlcs/footnote/icon-mask.svg'));
-            $view->registerJsWithVars(fn($variables) => "Craft.Footnote = $variables", [compact('icon')]);
             $view->registerTranslations('footnote', ['Footnote']);
+
+            if (class_exists(RedactorPlugin::class)) {
+                $this->_registerRedactorPackage();
+            }
+
+            if (class_exists(CkeditorPlugin::class)) {
+                CkeditorPlugin::registerCkeditorPackage(CkeditorAsset::class);
+            }
         }
     }
 
@@ -54,5 +58,18 @@ class Plugin extends \craft\base\Plugin
     protected function createSettingsModel(): ?Model
     {
         return new Settings();
+    }
+
+    // Private Methods
+    // =========================================================================
+
+    private function _registerRedactorPackage()
+    {
+        Event::on(RedactorField::class, RedactorField::EVENT_REGISTER_PLUGIN_PATHS, function (RegisterPluginPathsEvent $event) {
+            $event->paths[] = Craft::getAlias('@carlcs/footnote/web/redactor-plugins');
+        });
+
+        $icon = file_get_contents(Craft::getAlias('@carlcs/footnote/icon-mask.svg'));
+        Craft::$app->getView()->registerJsWithVars(fn ($variables) => "Craft.Footnote = $variables", [compact('icon')]);
     }
 }

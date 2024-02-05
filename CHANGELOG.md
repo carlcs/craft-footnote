@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+### Added
+- Added CKEditor compatibility.
+
 ## 3.0.1 - 2022-05-25
 
 ### Added

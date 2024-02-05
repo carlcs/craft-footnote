@@ -1,0 +1,12 @@
+.ck-content .fn-marker {
+  position: relative;
+  top: -0.5em;
+  font-size: 0.8em;
+  padding-right: 0.4em;
+  padding-left: 0.4em;
+  background-color: hsla(0, 0%, 78%, 0.3);
+}
+
+.ck.ck-editor__editable .fn-marker_selected {
+  background-color: hsla(0, 0%, 78%, 0.5);
+}
