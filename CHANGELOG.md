@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+### Added
+- Added Craft 5 compatibility.
+
 ## 3.1.1 - 2024-02-05
 
 ### Changed
