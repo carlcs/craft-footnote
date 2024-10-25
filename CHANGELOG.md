@@ -1,5 +1,10 @@
 # Changelog
 
+## 4.0.1 - 2024-10-25
+
+### Changed
+- Improved `parseFootnoteMarkers` and `parseFootnoteDefinitions` to handle `null` values, ensuring compatibility with empty CKEditor fields.
+
 ## 4.0.0 - 2024-02-08
 
 ### Added

@@ -41,7 +41,7 @@ class Footnotes extends Component
     /**
      * Parses a string for footnote definitions, stores names and texts.
      */
-    public function parseDefinitions(string $str, string $articleId = '', ?string $definitionSyntax = null): string
+    public function parseDefinitions(string $str = '', string $articleId = '', ?string $definitionSyntax = null): string
     {
         $settings = Plugin::getInstance()->getSettings();
         $definitionSyntax = $definitionSyntax ?: $settings->definitionSyntax;
@@ -66,7 +66,7 @@ class Footnotes extends Component
      * Parses a string for footnotes markers and replaces them with links to the
      * corresponding footnote if one is found, otherwise removes the marker.
      */
-    public function parseMarkers(string $str, string $template = null, string $articleId = '', ?string $markerSyntax = null): string
+    public function parseMarkers(string $str = '', string $template = null, string $articleId = '', ?string $markerSyntax = null): string
     {
         $settings = Plugin::getInstance()->getSettings();
         $markerSyntax = $markerSyntax ?: $settings->markerSyntax;
